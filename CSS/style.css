@@ -13,11 +13,23 @@
     border-radius: 5px;
   }
 
-  h1{
+  header h1{
+    text-align: center;
+    font-size:100%;
+
+  }
+  main h1{
     text-align: center;
   }
 
   h3 {
     text-align: center;
 
+  }
+  html{
+      background-color: rgb(179, 166, 97);
+  }
+  nav ul{
+      text-decoration: none;
+    
   }
