@@ -3,6 +3,7 @@ header h1 {
   font-size: 45px;
   padding-top: 50px;
   padding-bottom: 50px;
+  color: white;
 }
 
 header nav ul{
@@ -20,7 +21,7 @@ header nav ul li{
 
 header nav ul li a{
   text-decoration: none;
-  color: rgb(104, 100, 100);
+  color: rgb(202, 45, 45);
 
 
 }
@@ -30,6 +31,7 @@ main h1{
   font-size: 20px;
   margin-top: 50px;
   margin-bottom: 30px;
+  color: white;
 }
 
 
@@ -52,7 +54,7 @@ main section img {
 }
 
 #result{
-  background-color: #464542; /* Green */
+  background-color: #c02d2d; /* Green */
   border: none;
   color: white;
   padding: 15px 32px;
@@ -82,4 +84,7 @@ main section img {
 
 #productList li{
   margin-bottom: 10px;
+}
+html{
+  background-color: rgba(119, 49, 49, 0.323);
 }
