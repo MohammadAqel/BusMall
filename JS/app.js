@@ -1,15 +1,13 @@
 'use strict'
-
-let leftIndex=0;
-let centerIndex=0;
-let rightIndex=0;
+let leftIndex = 0;
+let centerIndex = 0;
+let rightIndex = 0;
 let votesNum = 0;
-let veiwNum =0;
-let totalVotes = 25;
+let veiwNum = 0;
+let totalVotes = 5;
 let votesChart = [];
 let viewsChart = [];
 let lastShown = [];
-
 
 const images = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb',
   'water-can',
@@ -27,8 +25,28 @@ function product(name) {
   this.votes = 0;
   this.views = 0,
     product.all.push(this);
+
 }
 product.all = [];
+displayData();
+
+// Add local storage
+function addLocal() {
+  let data = JSON.stringify(product.all);
+  localStorage.setItem('product', data);
+  console.log(data);
+}
+// local function
+function displayData() {
+  let mallData = localStorage.getItem('product');
+  let storedData = JSON.parse(mallData);
+  if (storedData !==null) {
+    product.all = storedData;
+    console.log('Loaded from Local Storage');
+    return;
+  }
+
+}
 
 function randomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -45,19 +63,19 @@ function render() {
 
   while (
     leftIndex === rightIndex || leftIndex === centerIndex || rightIndex === centerIndex || lastShown.includes(leftIndex) || lastShown.includes(rightIndex) || lastShown.includes(centerIndex)
-  ){
+  ) {
 
-  leftIndex = randomNumber(0, images.length - 1);
-  centerIndex = randomNumber(0, images.length - 1);
-  rightIndex = randomNumber(0, images.length - 1);
-}
-// function rendur() {
-console.log(leftIndex);
-console.log(centerIndex);
+    leftIndex = randomNumber(0, images.length - 1);
+    centerIndex = randomNumber(0, images.length - 1);
+    rightIndex = randomNumber(0, images.length - 1);
+  }
+  // function rendur() {
+  // console.log(leftIndex);
+  // console.log(centerIndex);
 
-console.log(rightIndex);
+  // console.log(rightIndex);
 
-  if (leftIndex === centerIndex || leftIndex === rightIndex || centerIndex === rightIndex){    
+  if (leftIndex === centerIndex || leftIndex === rightIndex || centerIndex === rightIndex) {
     rendur();
   }
   else {
@@ -91,43 +109,43 @@ function voteClick(event) {
         product.all[rightIndex].votes++;
       }
     } votesNum++;
-
     render();
   }
-  else{
-    imageSection.addEventListener('click', voteClick, veiwClick);
+  else {
+    imageSection.addEventListener('click', voteClick);
   }
 }
 
 
 
-function veiwClick(event) {
-  if (veiwNum < totalVotes) {
-  if (event.target.id !== 'imageSection') {
-    if (event.target.id === leftImage.id) {
-      product.all[leftIndex].views++;
-    } else if (event.target.id === centerImage.id) {
-      product.all[centerIndex].views++;
-    } else {
-      product.all[rightIndex].views++;
-    }
-  }
-  veiwNum++;
-    viewsChart.push(Mall.all[i].views);
-    rendur();
-  }
-  else{
-    imageSection.addEventListener('click', voteClick, veiwClick);
-  }
-}
+// function veiwClick(event) {
+//   if (veiwNum < totalVotes) {
+//     if (event.target.id !== 'imageSection') {
+//       if (event.target.id === leftImage.id) {
+//         product.all[leftIndex].views++;
+//       } else if (event.target.id === centerImage.id) {
+//         product.all[centerIndex].views++;
+//       } else {
+//         product.all[rightIndex].views++;
+//       }
+//     }
+//     veiwNum++;
+//     viewsChart.push(Mall.all[i].views);
+//     rendur();
+//   }
+//   else {
+//     imageSection.addEventListener('click', voteClick, veiwClick);
+//   }
+// }
 
-   render();
+// render();
 
 const result = document.getElementById('result');
 const productList = document.getElementById('productList');
 result.addEventListener('click', displayProductList);
-
 function displayProductList(event) {
+
+  addLocal();
   const h3El = document.createElement('h3');
   productList.appendChild(h3El);
   h3El.textContent = 'Product List';
@@ -143,12 +161,16 @@ function displayProductList(event) {
     viewsChart.push(product.all[i].views)
   }
 
+  
+  
+  
   chartRender();
   result.removeEventListener('click', displayProductList);
 }
+
 render();
 function chartRender() {
-  
+
 
   let ctx = document.getElementById('myChart').getContext('2d');
 
@@ -162,7 +184,7 @@ function chartRender() {
       labels: images,
       datasets: [{
         label: 'Votes Chart',
-        backgroundColor: 'black',
+        backgroundColor: 'white',
         borderColor: 'rgb(255, 99, 132)',
         data: votesChart
       },
